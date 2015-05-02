@@ -16,6 +16,15 @@
         <constructor-arg ref="dataStore"/>
     </bean>
 
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <!-- does not necessarily have to be the same name as the bean to be exported -->
+        <property name="serviceName" value="CalendarService"/>
+        <property name="service" ref="calendarService"/>
+        <property name="serviceInterface" value="org.diosoft.anakin.service.CalendarService"/>
+        <!-- defaults to 1099 -->
+        <property name="registryPort" value="7800"/>
+    </bean>
+
 
     <context:annotation-config/>
 
