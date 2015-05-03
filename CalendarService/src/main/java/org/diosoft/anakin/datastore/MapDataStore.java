@@ -6,7 +6,7 @@ import java.util.*;
 
 public class MapDataStore implements DataStore {
 
-    Map<UUID, Event> storage;
+    private Map<UUID, Event> storage;
 
     public MapDataStore() {
         this.storage  = new HashMap<UUID, Event>();
@@ -29,8 +29,20 @@ public class MapDataStore implements DataStore {
     }
 
     @Override
-    public List<Event> getAllEvent() {
+    public List<Event> getAllEvents() {
         return new ArrayList<Event>(storage.values());
     }
 
+    @Override
+    public Event getEventById(UUID id) {
+        return storage.get(id);
+    }
+
+    void addEventForTest(Event event) {
+        storage.put(event.getId(), event);
+    }
+
+    Event getEventForTest(UUID id) {
+        return storage.get(id);
+    }
 }

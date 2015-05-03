@@ -21,14 +21,14 @@ public class ClientMain /*extends Application*/ {
         ClientMain main = new ClientMain();
 
         try {
-            service.addEvent(service.createEvent(file1));
-            service.addEvent(service.createEvent(file2));
-            service.addEvent(service.createEvent("Party", "Peace!Labor!May", "01.05.2015 12:00", "01.05.2015 20:00"));
+            service.addEvent(service.addEvent(file1));
+            service.addEvent(service.addEvent(file2));
+            service.addEvent(service.addEvent("Party", "Peace!Labor!May", "01.05.2015 12:00", "01.05.2015 20:00"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        System.out.println(service.getAllEvent());
+        System.out.println(service.getAllEvents());
 
     }
 

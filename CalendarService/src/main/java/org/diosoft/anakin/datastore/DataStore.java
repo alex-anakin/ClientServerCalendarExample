@@ -3,6 +3,7 @@ package org.diosoft.anakin.datastore;
 import org.diosoft.anakin.model.Event;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface DataStore {
 
@@ -10,6 +11,8 @@ public interface DataStore {
 
     List<Event> searchByTitle(String title);
 
-    List<Event> getAllEvent();
+    List<Event> getAllEvents();
+
+    Event getEventById(UUID id);
 
 }

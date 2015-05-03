@@ -10,48 +10,49 @@ import static junit.framework.Assert.assertEquals;
 
 public class MapDataStoreTest {
 
-    MapDataStore testClass = new MapDataStore();
-    UUID expectedUuidValue;
-    Event expectedEventValue;
+    private MapDataStore testClass = new MapDataStore();
+    private Event expectedValue;
 
     @Before
     public void setUp() {
 
         String title = "Test event";
         String description = "Test description";
+        UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
         String[] attenders = {"test@gmail.com", "mail@ukr.net"};
-        Event event = new Event.Builder()
+        expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
+                .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
                 .attenders(Arrays.asList(attenders))
                 .build();
 
-        expectedEventValue = event;
-        expectedUuidValue = event.getId();
-        testClass.storage.put(event.getId(), event);
+        testClass.addEventForTest(expectedValue);
     }
 
     @Test
     public void testAddEvent() {
         String title = "Test event";
         String description = "Test description";
+        UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
         String[] attenders = {"test@gmail.com", "mail@ukr.net"};
         Event expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
+                .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
                 .attenders(Arrays.asList(attenders))
                 .build();
 
         testClass.addEvent(expectedValue);
-        Event returnedValue = testClass.storage.get(expectedValue.getId());
+        Event returnedValue = testClass.getEventForTest(expectedValue.getId());
         assertEquals(expectedValue, returnedValue);
     }
 
@@ -60,6 +61,36 @@ public class MapDataStoreTest {
         String title = "Test event";
         List<Event> events = testClass.searchByTitle(title);
         Event returnedValue = events.get(0);
-        assertEquals(expectedEventValue, returnedValue);
+        assertEquals(expectedValue, returnedValue);
+    }
+
+    @Test
+    public void testGetAllEvents() {
+        String title = "Another test event";
+        String description = "Another Test description";
+        UUID id = UUID.randomUUID();
+        GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.JUNE, 30, 10, 0);
+        GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.JUNE, 30, 12, 30);
+        String[] attenders = {"one@gmail.com", "mail@bigmir.net"};
+        Event event = new Event.Builder()
+                .title(title)
+                .description(description)
+                .id(id)
+                .startDate(startDate)
+                .endDate(endDate)
+                .attenders(Arrays.asList(attenders))
+                .build();
+        // number of events in storage at the moment:
+        int expectedValue = 2;
+
+        testClass.addEventForTest(event);
+        int returnedValue = testClass.getAllEvents().size();
+        assertEquals(expectedValue, returnedValue);
+    }
+
+    @Test
+    public void testGetEventById() {
+        Event returnedValue = testClass.getEventById(expectedValue.getId());
+        assertEquals(expectedValue, returnedValue);
     }
 }

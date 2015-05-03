@@ -6,6 +6,7 @@ import org.diosoft.anakin.model.Event;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -22,37 +23,37 @@ public class MapCalendarService implements CalendarService {
     }
 
     @Override
-    public Event createEvent(String title, String description, String start, String end, String[] attenders)
+    public void addEvent(String title, String description, String start, String end, String[] attenders)
             throws ParseException {
 
-        return new Event.Builder()
+        dataStore.addEvent(new Event.Builder()
                 .id(makeId())
                 .title(title)
                 .description(description)
                 .startDate(parseDate(start))
                 .endDate(parseDate(end))
                 .attenders(Arrays.asList(attenders))
-                .build();
+                .build());
     }
 
     @Override
-    public Event createEvent(String title, String description, String start, String end) throws ParseException {
+    public void addEvent(String title, String description, String start, String end) throws ParseException {
         String[] attenders = {};
-        return createEvent(title, description, start, end, attenders);
+        addEvent(title, description, start, end, attenders);
     }
 
     @Override
-    public Event createEvent(String title, String start, String end) throws ParseException {
+    public void addEvent(String title, String start, String end) throws ParseException {
         String[] attenders = {};
         String description = "";
-        return createEvent(title, description, start, end, attenders);
+        addEvent(title, description, start, end, attenders);
     }
 
     @Override
-    public Event createEvent(String path) throws ParseException {
+    public void addEvent(String path) throws ParseException {
         String[] data = readDataFromFile(path).split(", ");
         String[] attenders = Arrays.copyOfRange(data, 4, data.length);
-        return createEvent(data[0], data[1], data[2], data[3], attenders);
+        addEvent(data[0], data[1], data[2], data[3], attenders);
     }
 
     @Override
@@ -66,18 +67,22 @@ public class MapCalendarService implements CalendarService {
     }
 
     @Override
-    public List<Event> getAllEvent() {
-        return dataStore.getAllEvent();
+    public List<Event> getAllEvents() {
+        return dataStore.getAllEvents();
     }
 
+    @Override
+    public Event getEventById(UUID id) throws RemoteException {
+        return dataStore.getEventById(id);
+    }
 
     @Override
-    public Event setDescription(String description) {
+    public Event setDescription(Event event, String description) {
         return null;
     }
 
     @Override
-    public Event setAttenders(String[] attenders) {
+    public Event setAttenders(Event event, String[] attenders) {
         return null;
     }
 
