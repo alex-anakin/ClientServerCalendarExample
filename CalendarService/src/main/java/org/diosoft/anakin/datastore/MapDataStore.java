@@ -18,7 +18,7 @@ public class MapDataStore implements DataStore {
     }
 
     @Override
-    public List<Event> searchByTitle(String title) {
+    public List<Event> getEventByTitle(String title) {
         List<Event> list = new ArrayList<Event>();
         for(Map.Entry<UUID, Event> entry : storage.entrySet()) {
             if (entry.getValue().getTitle().equalsIgnoreCase(title)) {
@@ -34,8 +34,29 @@ public class MapDataStore implements DataStore {
     }
 
     @Override
-    public Event getEventById(UUID id) {
+    public Event getEvent(UUID id) {
         return storage.get(id);
+    }
+
+    @Override
+    public List<Event> getEventsByDay(GregorianCalendar date) {
+        List<Event> list = new ArrayList<Event>();
+        for(Map.Entry<UUID, Event> entry : storage.entrySet()) {
+            GregorianCalendar testDate = entry.getValue().getStartDate();
+            if (testDate.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                    testDate.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
+                    testDate.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)) {
+                list.add(entry.getValue());
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public Event removeEvent(UUID id) {
+        Event event = storage.get(id);
+        storage.remove(id);
+        return event;
     }
 
     void addEventForTest(Event event) {

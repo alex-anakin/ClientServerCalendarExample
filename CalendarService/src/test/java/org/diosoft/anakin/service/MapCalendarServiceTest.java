@@ -81,7 +81,7 @@ public class MapCalendarServiceTest {
     }
 
     @Test
-    public void testAddEventWithoutAttenders() throws Exception {
+    public void testAddEventWithoutAttendees() throws Exception {
         // initialize variable inputs
         String title = "Test event";
         String description = "Test description";
@@ -104,7 +104,7 @@ public class MapCalendarServiceTest {
     }
 
     @Test
-    public void testAddEventWithoutAttendersDescription() throws Exception {
+    public void testAddEventWithoutAttendeesDescription() throws Exception {
         // initialize variable inputs
         String title = "Test event";
         String start = "30.04.2015 10:00";
@@ -157,7 +157,7 @@ public class MapCalendarServiceTest {
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attenders))
                 .build();
 
         // initialize mocks
@@ -183,13 +183,13 @@ public class MapCalendarServiceTest {
 
         // initialize mocks
         DataStore dataStore = mock(DataStore.class);
-        when(dataStore.searchByTitle(title)).thenReturn(expectedValue);
+        when(dataStore.getEventByTitle(title)).thenReturn(expectedValue);
 
         // initialize class to test
         CalendarService service = new MapCalendarService(dataStore);
 
         // invoke method on class to test
-        List<Event> returnedValue = service.searchByTitle(title);
+        List<Event> returnedValue = service.getEventByTitle(title);
 
         // assert return value
         assertEquals(expectedValue, returnedValue);

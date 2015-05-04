@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.rmi.RemoteException;
 import java.text.ParseException;
+import java.util.GregorianCalendar;
 
 public class ClientMain /*extends Application*/ {
 
@@ -21,14 +22,22 @@ public class ClientMain /*extends Application*/ {
         ClientMain main = new ClientMain();
 
         try {
-            service.addEvent(service.addEvent(file1));
-            service.addEvent(service.addEvent(file2));
-            service.addEvent(service.addEvent("Party", "Peace!Labor!May", "01.05.2015 12:00", "01.05.2015 20:00"));
+            service.addEvent(file1);
+            service.addEvent(file2);
+            service.addEvent("Party", "Peace!Labor!May", "30.04.2015 17:00", "30.04.2015 22:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         System.out.println(service.getAllEvents());
+
+        try {
+            GregorianCalendar beginTimeForEvent = service.findTimeForEvent("30.04.2015", 120);
+            System.out.println(beginTimeForEvent.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

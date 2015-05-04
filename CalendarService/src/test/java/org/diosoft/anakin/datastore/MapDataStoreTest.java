@@ -21,14 +21,14 @@ public class MapDataStoreTest {
         UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
-        String[] attenders = {"test@gmail.com", "mail@ukr.net"};
+        String[] attendees = {"test@gmail.com", "mail@ukr.net"};
         expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attendees))
                 .build();
 
         testClass.addEventForTest(expectedValue);
@@ -41,14 +41,14 @@ public class MapDataStoreTest {
         UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
-        String[] attenders = {"test@gmail.com", "mail@ukr.net"};
+        String[] attendees = {"test@gmail.com", "mail@ukr.net"};
         Event expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attendees))
                 .build();
 
         testClass.addEvent(expectedValue);
@@ -59,7 +59,7 @@ public class MapDataStoreTest {
     @Test
     public void testSearchByTitle() {
         String title = "Test event";
-        List<Event> events = testClass.searchByTitle(title);
+        List<Event> events = testClass.getEventByTitle(title);
         Event returnedValue = events.get(0);
         assertEquals(expectedValue, returnedValue);
     }
@@ -71,14 +71,14 @@ public class MapDataStoreTest {
         UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.JUNE, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.JUNE, 30, 12, 30);
-        String[] attenders = {"one@gmail.com", "mail@bigmir.net"};
+        String[] attendees = {"one@gmail.com", "mail@bigmir.net"};
         Event event = new Event.Builder()
                 .title(title)
                 .description(description)
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attendees))
                 .build();
         // number of events in storage at the moment:
         int expectedValue = 2;
@@ -90,7 +90,7 @@ public class MapDataStoreTest {
 
     @Test
     public void testGetEventById() {
-        Event returnedValue = testClass.getEventById(expectedValue.getId());
+        Event returnedValue = testClass.getEvent(expectedValue.getId());
         assertEquals(expectedValue, returnedValue);
     }
 }

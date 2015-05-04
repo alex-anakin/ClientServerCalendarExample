@@ -24,7 +24,7 @@ public class EventTest {
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attenders))
                 .build();
 
         String expectedValue = title;
@@ -45,7 +45,7 @@ public class EventTest {
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attenders))
                 .build();
 
         String expectedValue = description;
@@ -66,7 +66,7 @@ public class EventTest {
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attenders))
                 .build();
 
         GregorianCalendar expectedValue = startDate;
@@ -87,7 +87,7 @@ public class EventTest {
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attenders))
                 .build();
 
         GregorianCalendar expectedValue = endDate;
@@ -96,7 +96,7 @@ public class EventTest {
     }
 
     @Test
-    public void testBuildingInstanceAttendersCheck() {
+    public void testBuildingInstanceAttendeesCheck() {
 
         String title = "Test event";
         String description = "Test description";
@@ -108,11 +108,11 @@ public class EventTest {
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attenders(Arrays.asList(attenders))
+                .attendees(Arrays.asList(attenders))
                 .build();
 
         List <String> expectedValue = Arrays.asList(attenders);
-        List <String> returnedValue = event.getAttenders();
+        List <String> returnedValue = event.getAttendees();
         assertEquals(expectedValue, returnedValue);
     }
 }

@@ -11,7 +11,7 @@ public class Event implements Serializable {
     private final String title;
     private final String description;
     private final UUID id;
-    private final List<String> attenders;
+    private final List<String> attendees;
     private final GregorianCalendar startDate;
     private final GregorianCalendar endDate;
 
@@ -19,7 +19,7 @@ public class Event implements Serializable {
         this.title = builder.title;
         this.description = builder.description;
         this.id = builder.id;
-        this.attenders = builder.attenders;
+        this.attendees = builder.attendees;
         this.startDate = builder.startDate;
         this.endDate = builder.endDate;
     }
@@ -36,8 +36,8 @@ public class Event implements Serializable {
         return id;
     }
 
-    public List<String> getAttenders() {
-        return attenders;
+    public List<String> getAttendees() {
+        return attendees;
     }
 
     public GregorianCalendar getStartDate() {
@@ -55,7 +55,7 @@ public class Event implements Serializable {
 
         Event event = (Event) o;
 
-        if (attenders != null ? !attenders.equals(event.attenders) : event.attenders != null) return false;
+        if (attendees != null ? !attendees.equals(event.attendees) : event.attendees != null) return false;
         if (description != null ? !description.equals(event.description) : event.description != null) return false;
         if (endDate != null ? !endDate.equals(event.endDate) : event.endDate != null) return false;
         if (id != null ? !id.equals(event.id) : event.id != null) return false;
@@ -70,7 +70,7 @@ public class Event implements Serializable {
         int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (attenders != null ? attenders.hashCode() : 0);
+        result = 31 * result + (attendees != null ? attendees.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         return result;
@@ -84,7 +84,7 @@ public class Event implements Serializable {
         sb.append("id: ").append(id).append("\n");
         sb.append("startDate: ").append(formatDate(startDate)).append("\n");
         sb.append("endDate: ").append(formatDate(endDate)).append("\n");
-        sb.append("attenders: ").append(attenders).append("\n");
+        sb.append("attendees: ").append(attendees).append("\n");
         return sb.toString();
     }
 
@@ -92,7 +92,7 @@ public class Event implements Serializable {
         private String title;
         private String description;
         private UUID id;
-        private List<String> attenders;
+        private List<String> attendees;
         private GregorianCalendar startDate;
         private GregorianCalendar endDate;
 
@@ -103,7 +103,7 @@ public class Event implements Serializable {
             this.title = original.title;
             this.description = original.description;
             this.id = original.id;
-            this.attenders = original.attenders;
+            this.attendees = original.attendees;
             this.startDate = original.startDate;
             this.endDate = original.endDate;
         }
@@ -123,8 +123,8 @@ public class Event implements Serializable {
             return this;
         }
 
-        public Builder attenders(List<String> value) {
-            this.attenders = value;
+        public Builder attendees(List<String> value) {
+            this.attendees = value;
             return this;
         }
 
